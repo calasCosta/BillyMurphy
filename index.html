@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billy Murphy & Son | Master Craft Butchers | Waterford Shopping Centre Lisduggan</title>
+  
+  <!-- Tailwind CSS CDN with custom color theme -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            burgundy: {
+              50: '#fdf2f4',
+              100: '#fbe8ec',
+              600: '#9b1c31',
+              700: '#7e1728',
+              800: '#641523',
+              900: '#4c0f1a',
+              950: '#2d080f'
+            },
+            slatecharcoal: {
+              850: '#181f2b',
+              900: '#111722',
+              950: '#0b0f16'
+            },
+            goldaccent: {
+              400: '#fbbf24',
+              500: '#d97706',
+              600: '#b45309'
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Playfair Display + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .texture-bg {
+      background-color: #111722;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .badge-pulse {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-burgundy-700 selection:text-white pb-16 md:pb-0">
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-slatecharcoal-900/95 backdrop-blur-md border-b border-slate-800 shadow-xl transition-all duration-300" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Branding -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-burgundy-700 to-burgundy-900 flex items-center justify-center border border-goldaccent-500/30 shadow-md group-hover:scale-105 transition-transform duration-200">
+          <i class="fa-solid fa-utensils text-goldaccent-400 text-xl"></i>
+        </div>
+        <div>
+          <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white block leading-none">
+            Billy Murphy <span class="text-goldaccent-400 font-light">&amp; Son</span>
+          </span>
+          <span class="text-[11px] tracking-widest uppercase text-stone-400 font-medium block mt-1">
+            Master Craft Butchers &bull; Waterford
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-300">
+        <a href="#specials" class="hover:text-goldaccent-400 transition-colors">Today's Cuts</a>
+        <a href="#tradition" class="hover:text-goldaccent-400 transition-colors">Our Craft</a>
+        <a href="#reviews" class="hover:text-goldaccent-400 transition-colors">Reviews</a>
+        <a href="#location" class="hover:text-goldaccent-400 transition-colors">Find Us</a>
+      </nav>
+
+      <!-- Store Live Status & Action Buttons -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Live Status Pill -->
+        <button onclick="toggleHoursModal()" class="flex items-center gap-2 bg-slatecharcoal-850 hover:bg-slate-800 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs transition cursor-pointer" title="Click to view full opening hours">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 badge-pulse"></span>
+          <span class="text-stone-200 font-medium">Open <span class="hidden sm:inline text-stone-400">&bull; Closes 18:00</span></span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-stone-400"></i>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="lg:hidden relative inline-flex items-center justify-center w-10 h-10 p-0 text-stone-300 hover:text-white rounded-lg focus:outline-none transition-colors">
+          <i id="menuIcon" class="fa-solid fa-bars text-xl pointer-events-none"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-slatecharcoal-900 border-b border-slate-800 px-4 py-4 space-y-3 transition-all">
+      <a href="#specials" onclick="toggleMobileMenu()" class="block text-stone-200 font-medium py-1 hover:text-goldaccent-400">Today's Fresh Cuts</a>
+      <a href="#tradition" onclick="toggleMobileMenu()" class="block text-stone-200 font-medium py-1 hover:text-goldaccent-400">Our Heritage &amp; Quality</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" class="block text-stone-200 font-medium py-1 hover:text-goldaccent-400">Customer Reviews</a>
+      <a href="#location" onclick="toggleMobileMenu()" class="block text-stone-200 font-medium py-1 hover:text-goldaccent-400">Location &amp; Opening Hours</a>
+      <div class="pt-2 border-t border-slate-800">
+        <a href="tel:+35351376061" class="w-full text-center py-2.5 bg-burgundy-700 text-white font-semibold text-xs rounded-lg flex items-center justify-center gap-2">
+          <i class="fa-solid fa-phone"></i> Call Shop: 051 376 061
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category & Fresh Cuts Showcase -->
+  <section id="specials" class="py-16 bg-stone-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <p class="text-burgundy-700 font-bold uppercase tracking-widest text-xs">Fresh at the Counter</p>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mt-1">Prime Cuts &amp; Master Specialities</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2">
+          Prepared daily by our certified master butchers. Customized to your preferred thickness, bone-in or French-trimmed.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+          <button onclick="filterCategory('all')" id="btn-all" class="category-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-burgundy-700 text-white shadow-sm">
+            All Specialities
+          </button>
+          <button onclick="filterCategory('beef')" id="btn-beef" class="category-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white text-stone-700 hover:bg-stone-200">
+            Irish Prime Beef
+          </button>
+          <button onclick="filterCategory('pork')" id="btn-pork" class="category-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white text-stone-700 hover:bg-stone-200">
+            Lamb &amp; Pork
+          </button>
+          <button onclick="filterCategory('poultry')" id="btn-poultry" class="category-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white text-stone-700 hover:bg-stone-200">
+            Poultry &amp; Stir-fry
+          </button>
+          <button onclick="filterCategory('sausages')" id="btn-sausages" class="category-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white text-stone-700 hover:bg-stone-200">
+            Artisan Sausages
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuts Grid -->
+      <div id="cutsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Product 1: Prime Dry-Aged Ribeye (Raw) -->
+        <div class="cut-card beef bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group bg-stone-200">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80" 
+                 alt="Raw Uncooked Prime Irish Dry-Aged Ribeye Steak with marbling" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-burgundy-700 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              28-Day Dry Aged
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">Dry-Aged Ribeye Steak</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;28.99<span class="text-xs text-stone-500 font-normal"> /kg</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                Intensely marbled, tender and rich. Hung in our temperature-controlled aging chillers for authentic traditional flavor.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-solid fa-knife text-stone-400 mr-1"></i> Custom cut to order</span>
+              <button onclick="quickEnquire('28-Day Dry-Aged Ribeye Steak')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: Prime Centre-Cut Fillet (Raw) -->
+        <div class="cut-card beef bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group bg-stone-200">
+            <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=800&q=80" 
+                 alt="Fresh Raw Beef Tenderloin Fillet Medallions on Butcher Cutting Table" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-burgundy-700 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              Prime Cut
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">Prime Centre-Cut Fillet</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;38.50<span class="text-xs text-stone-500 font-normal"> /kg</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                The softest, most tender cut of Irish beef. Trimmed by our master butchers with zero waste. Perfect for dinner parties.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-regular fa-circle-check text-emerald-600 mr-1"></i> Freshly trimmed</span>
+              <button onclick="quickEnquire('Prime Centre-Cut Fillet')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: French-Trimmed Lamb Rack (Raw) -->
+        <div class="cut-card pork bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group bg-stone-200">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" 
+                 alt="Fresh Raw French-Trimmed Lamb Rack Ribs on wooden butcher cutting board" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-amber-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              Local Pasture
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">French-Trimmed Lamb Rack</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;26.50<span class="text-xs text-stone-500 font-normal"> /kg</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                Locally sourced tender Irish spring lamb. French trimmed bones for pristine presentation and succulent Sunday roasting.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-solid fa-mortar-pestle text-stone-400 mr-1"></i> Herb crust available</span>
+              <button onclick="quickEnquire('French-Trimmed Lamb Rack')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4: Traditional Pork Sausages (Raw) -->
+        <div class="cut-card sausages bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group bg-stone-200">
+            <img src="https://images.unsplash.com/photo-1524182576066-1be961098794?auto=format&fit=crop&w=800&q=80" 
+                 alt="Raw Uncooked Artisan Pork Sausages Links on butcher counter" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-emerald-700 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              Murphy Recipe
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">Traditional Jumbo Pork Sausages</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;8.99<span class="text-xs text-stone-500 font-normal"> /lb pack</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                Our secret generation seasoning blend made with prime Irish pork shoulder in natural casings. Waterford's favorite breakfast staple.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-solid fa-wheat-awn text-stone-400 mr-1"></i> Gluten-free option</span>
+              <button onclick="quickEnquire('Traditional Jumbo Pork Sausages')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="cut-card poultry bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group">
+            <img src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=800&q=80" 
+                 alt="Fresh Raw Farmhouse Whole Chicken on prep paper" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-amber-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              Free-Range
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">Farmhouse Free-Range Chicken</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;8.50<span class="text-xs text-stone-500 font-normal"> each</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                Irish farm fresh grain-fed chicken. Cleanly prepared and oven-ready, ideal for roasting with crisp skin and tender meat.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-regular fa-clock text-stone-400 mr-1"></i> Oven ready</span>
+              <button onclick="quickEnquire('Farmhouse Free-Range Chicken')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="cut-card pork bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/80 flex flex-col">
+          <div class="relative h-52 overflow-hidden group">
+            <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=80" 
+                 alt="Fresh Raw Irish Lamb Chops with herbs on butcher cutting board" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 bg-burgundy-700 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+              Pasture Fed
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <h3 class="font-serif font-bold text-lg text-stone-900">Prime Irish Loin Chops</h3>
+                <span class="text-burgundy-700 font-bold text-base">&euro;18.50<span class="text-xs text-stone-500 font-normal"> /kg</span></span>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed mb-3">
+                Thick, hand-cut raw loin chops from local Irish pasture farms. Tender, succulent, and perfect for quick pan-searing.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+              <span class="text-xs text-stone-500"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Fresh cut daily</span>
+              <button onclick="quickEnquire('Prime Irish Loin Chops')" class="text-xs font-bold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1">
+                Reserve / Call <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Counter Note Banner -->
+      <div class="mt-12 bg-burgundy-950 text-white p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-burgundy-800">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-burgundy-800/80 flex items-center justify-center text-goldaccent-400 text-xl shrink-0">
+            <i class="fa-solid fa-clipboard-question"></i>
+          </div>
+          <div>
+            <h4 class="font-serif font-bold text-lg">Looking for a specific cut or bulk catering orders?</h4>
+            <p class="text-xs text-stone-300">Brisket, whole joints, custom steaks, or freezer pack orders are easily accommodated by phone.</p>
+          </div>
+        </div>
+        <a href="tel:+35351376061" class="px-5 py-2.5 rounded-xl bg-goldaccent-500 hover:bg-goldaccent-400 text-slate-900 font-bold text-xs uppercase tracking-wider transition whitespace-nowrap shadow">
+          Speak with a Butcher
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- The Murphy Promise / Heritage Section -->
+  <section id="tradition" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-burgundy-700 font-bold uppercase tracking-widest text-xs">The Billy Murphy Heritage</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+            Three Generations of Butcher Craft in the Heart of Waterford.
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            At <strong>Billy Murphy &amp; Son</strong>, butchery is not just our job—it is our family craft. For decades, our counter at Waterford Shopping Centre Lisduggan has served local households with honesty, prime cuts, and expert culinary advice.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-burgundy-100 text-burgundy-800 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-leaf text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-stone-900 text-sm">100% Local Irish Farms</h4>
+                <p class="text-xs text-stone-500 mt-0.5">Full animal traceability from grass pastures straight to our store.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-burgundy-100 text-burgundy-800 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-snowflake text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-stone-900 text-sm">Dry-Aging Perfection</h4>
+                <p class="text-xs text-stone-500 mt-0.5">Carefully aged on the bone for 21 to 28 days for exceptional tenderness.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-burgundy-100 text-burgundy-800 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-scissors text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-stone-900 text-sm">Hand-Trimmed to Spec</h4>
+                <p class="text-xs text-stone-500 mt-0.5">Tell us your recipe and we will butterfly, trim, or tie your cuts exactly as needed.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-burgundy-100 text-burgundy-800 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-heart text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-stone-900 text-sm">Waterford Community</h4>
+                <p class="text-xs text-stone-500 mt-0.5">Proudly supporting local clubs, schools, and families every single week.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <div class="border-l-4 border-burgundy-700 pl-4 py-1">
+              <p class="font-serif italic text-stone-800 text-sm">"If you're not happy with how a steak cooks on your pan, come talk to Billy. We stand by every single cut we sell."</p>
+              <p class="text-xs font-bold text-stone-500 mt-1">&mdash; The Murphy Family</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authentic Storefront & Archival Heritage Photo Display -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="relative bg-slatecharcoal-900 rounded-2xl p-3 shadow-xl border border-stone-200 overflow-hidden group">
+            <div class="relative overflow-hidden rounded-xl">
+              <!-- Actual Billy Murphy & Son storefront + archival inset image -->
+              <img 
+                src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RM2ZX6MgGuxlNGdgakQG2ucOPHgzWGTdZp1CSsofZH8l9NRu8egW-3hr3JwwfkdhCek813CO3kLbxZdNMVVho1pRNI8mKovjBWKc67Wn_VADnn0EQOy2fe2-vaajF5WDTZNOet=s1360-w1360-h1020-rw" 
+                referrerpolicy="no-referrer"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80';"
+                alt="Billy Murphy & Son Storefront at Waterford Shopping Centre Lisduggan with historical vintage counter inset" 
+                class="w-full h-auto max-h-[460px] object-cover rounded-lg group-hover:scale-[1.01] transition-transform duration-500 shadow-inner"
+              />
+              
+              <!-- Subtle badging over image -->
+              <div class="absolute top-3 left-3 bg-slatecharcoal-900/90 backdrop-blur-md border border-goldaccent-500/40 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-goldaccent-400"></i>
+                <span>Then &amp; Now &bull; Waterford Craft</span>
+              </div>
+            </div>
+
+            <!-- Descriptive Caption Card below photo -->
+            <div class="mt-3 px-3 pb-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-stone-300">
+              <div>
+                <p class="font-serif font-bold text-white text-sm">Lisduggan Big Shopping Centre Counter</p>
+                <p class="text-xs text-stone-400">Pictured: Today's delicatessen counter &amp; original shop.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-burgundy-950/80 border border-burgundy-700/60 text-goldaccent-400 text-xs font-medium">
+                  <i class="fa-solid fa-certificate"></i> Waterford Authentic
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supporting Heritage Statistics -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-stone-900 text-stone-200 p-4 rounded-xl border border-stone-800 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-goldaccent-500/20 text-goldaccent-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-award text-lg"></i>
+              </div>
+              <div>
+                <p class="font-serif font-bold text-2xl text-white leading-none">30+ Years</p>
+                <p class="text-xs text-stone-400 uppercase tracking-wider mt-1">At Lisduggan</p>
+              </div>
+            </div>
+
+            <div class="bg-burgundy-900 text-white p-4 rounded-xl border border-burgundy-800 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-burgundy-800 text-amber-300 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-wheat-awn text-lg"></i>
+              </div>
+              <div>
+                <p class="font-serif font-bold text-2xl text-amber-300 leading-none">100%</p>
+                <p class="text-xs text-stone-200 uppercase tracking-wider mt-1">Irish Pasture</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Local Community Reviews & Ratings -->
+  <section id="reviews" class="py-16 bg-stone-100 border-t border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-burgundy-700 font-bold uppercase tracking-widest text-xs">Customer Satisfaction</span>
+          <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1">Loved by Waterford Food Lovers</h2>
+        </div>
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-xs border border-stone-200 self-start md:self-auto">
+          <div class="flex text-amber-400 text-sm">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <span class="font-bold text-stone-800 text-sm">4.9 / 5.0</span>
+          <span class="text-stone-400 text-xs">(200+ Reviews)</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Review 1 -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 text-xs">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-700 text-sm italic leading-relaxed">
+              "Best ribeyes in Waterford hands down. The dry aging makes such a huge difference. Billy and the lads always have time to recommend how to cook it. Shopping Centre parking is so easy too."
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+            <span class="font-bold text-stone-900 text-xs">Sean O'Connor</span>
+            <span class="text-xs text-stone-400">Lisduggan Local</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 text-xs">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-700 text-sm italic leading-relaxed">
+              "We buy our meats here every fortnight. Incredible value, the sausages are second to none and you can taste the quality in the mince. Never going back to supermarket meat."
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+            <span class="font-bold text-stone-900 text-xs">Aoife Power</span>
+            <span class="text-xs text-stone-400">Tramore Road</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 text-xs">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-700 text-sm italic leading-relaxed">
+              "Phoned in an order for a large family barbecue box on a Saturday morning. Everything was packed, trimmed, and ready to pick up within an hour. Outstanding service and cheerful staff."
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+            <span class="font-bold text-stone-900 text-xs">Mark Kavanagh</span>
+            <span class="text-xs text-stone-400">Waterford City</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Location & Contact Section -->
+  <section id="location" class="py-20 bg-slatecharcoal-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Title -->
+      <div class="mb-10 text-left">
+        <p class="text-xs font-semibold uppercase tracking-widest text-goldaccent-400">Visit Us</p>
+        <h2 class="font-serif text-3xl font-bold text-white mt-1">Waterford Shopping Centre Lisduggan</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left: Essential Info Card -->
+        <div class="lg:col-span-5 bg-slatecharcoal-850 p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+          <div class="space-y-6">
+            
+            <!-- Address -->
+            <div>
+              <p class="text-xs uppercase font-medium text-stone-400 tracking-wider">Address</p>
+              <p class="text-sm font-medium text-stone-100 mt-1 leading-relaxed">
+                Waterford Shopping Centre, Paddy Browne's Rd,<br>
+                Lisduggan Big, Waterford, <span class="font-mono text-goldaccent-400 font-semibold">X91 EEX4</span>
+              </p>
+            </div>
+
+            <!-- Opening Hours -->
+            <div>
+              <p class="text-xs uppercase font-medium text-stone-400 tracking-wider">Opening Hours</p>
+              <div class="mt-2 space-y-1.5 text-xs text-stone-200">
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span class="text-stone-300">Monday &ndash; Saturday</span>
+                  <span class="font-medium text-white">08:30 &ndash; 18:00</span>
+                </div>
+                <div class="flex justify-between py-1 text-stone-400">
+                  <span>Sunday</span>
+                  <span class="font-normal text-stone-400">Closed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Telephone -->
+            <div>
+              <p class="text-xs uppercase font-medium text-stone-400 tracking-wider">Telephone</p>
+              <a href="tel:+35351376061" class="inline-block text-lg font-bold text-white hover:text-goldaccent-400 transition mt-1">
+                +353 51 376 061
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Clean Action CTAs -->
+          <div class="pt-6 mt-6 border-t border-slate-800 grid grid-cols-2 gap-3">
+            <a href="tel:+35351376061" class="py-2.5 px-4 rounded-xl bg-burgundy-700 hover:bg-burgundy-600 text-white font-semibold text-xs tracking-wide text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-phone text-xs"></i> Call
+            </a>
+            <a href="https://maps.google.com/?q=Waterford+Shopping+Centre+Lisduggan+Paddy+Brownes+Rd+Waterford+X91+EEX4" target="_blank" class="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-stone-200 font-semibold text-xs tracking-wide text-center transition border border-slate-700 flex items-center justify-center gap-2">
+              <i class="fa-solid fa-diamond-turn-right text-goldaccent-400 text-xs"></i> Directions
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Minimalist Map Frame -->
+        <div class="lg:col-span-7 bg-slatecharcoal-850 rounded-2xl border border-slate-800 overflow-hidden min-h-[340px] flex">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.467406399185!2d-7.143719023242028!3d52.25301887199203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4842c69d0c6fa44b%3A0xe54d89617498c8c5!2sWaterford%20Shopping%20Centre%20Lisduggan!5e0!3m2!1sen!2sie!4v1716000000000!5m2!1sen!2sie" 
+            class="w-full h-full min-h-[340px] border-0" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Billy Murphy & Son Butcher shop location">
+          </iframe>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer (2 Columns: Brand Info & Customer Service) -->
+  <footer class="bg-burgundy-950 text-stone-300 border-t border-burgundy-900/80 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-8 items-start">
+        
+        <div class="space-y-3 max-w-md">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded bg-burgundy-700 flex items-center justify-center text-amber-300">
+              <i class="fa-solid fa-utensils text-sm"></i>
+            </div>
+            <span class="font-serif font-bold text-white text-lg">Billy Murphy &amp; Son</span>
+          </div>
+          <p class="text-xs text-stone-400 leading-relaxed">
+            Craft Butchers proudly based in Waterford Shopping Centre Lisduggan. Committed to premium 100% Irish meat, authentic recipes, and personal counter service.
+          </p>
+        </div>
+
+        <div class="md:text-right">
+          <h5 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">Customer Service &amp; Inquiries</h5>
+          <ul class="text-xs space-y-2 text-stone-300">
+            <li><a href="tel:+35351376061" class="hover:text-white transition">Phone Orders: 051 376 061</a></li>
+            <li><button onclick="toggleHoursModal()" class="hover:text-white transition">View Opening Schedule</button></li>
+            <li><a href="#location" class="hover:text-white transition">Lisduggan Centre Parking</a></li>
+            <li><a href="#tradition" class="hover:text-white transition">Our Quality Heritage</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-burgundy-900/60 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-500 gap-4">
+        <p>&copy; <span id="currentYear"></span> Billy Murphy &amp; Son Craft Butchers. All rights reserved.</p>
+        <p>Waterford Shopping Centre Lisduggan &bull; Craftsmanship &amp; Tradition</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Opening Hours Full Schedule -->
+  <div id="hoursModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slatecharcoal-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl text-white transform transition-all">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 badge-pulse"></div>
+          <h3 class="font-serif font-bold text-lg text-white">Store Opening Hours</h3>
+        </div>
+        <button onclick="toggleHoursModal()" class="text-stone-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-2 text-xs">
+        <div class="p-2.5 bg-emerald-950/60 border border-emerald-500/30 rounded-lg flex items-center justify-between text-emerald-300">
+          <span class="font-bold"><i class="fa-solid fa-circle-check mr-1.5"></i> Current Status:</span>
+          <span class="font-semibold">Open Now &bull; Closes at 18:00</span>
+        </div>
+
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300">
+          <span>Monday</span>
+          <span class="font-medium text-white">09:00 &ndash; 18:00</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300">
+          <span>Tuesday</span>
+          <span class="font-medium text-white">09:00 &ndash; 18:00</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300">
+          <span>Wednesday</span>
+          <span class="font-medium text-white">09:00 &ndash; 18:00</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300 bg-slate-800/60 px-2 rounded font-semibold text-goldaccent-400">
+          <span>Thursday</span>
+          <span class="text-white">09:00 &ndash; 18:00</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300">
+          <span>Friday</span>
+          <span class="font-medium text-white">08:30 &ndash; 18:00</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-slate-800 text-stone-300">
+          <span>Saturday</span>
+          <span class="font-medium text-white">08:30 &ndash; 17:30</span>
+        </div>
+        <div class="flex justify-between py-2 text-stone-400">
+          <span>Sunday</span>
+          <span class="italic text-stone-400">Closed</span>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex gap-3">
+        <a href="tel:+35351376061" class="flex-1 py-2.5 rounded-xl bg-burgundy-700 hover:bg-burgundy-600 text-white font-bold text-xs uppercase text-center transition">
+          <i class="fa-solid fa-phone mr-1"></i> Call 051 376 061
+        </a>
+        <button onclick="toggleHoursModal()" class="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-stone-300 text-xs font-semibold">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Order / Reserve Pack Form -->
+  <div id="orderModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl text-slate-800 transform transition-all">
+      <div class="flex justify-between items-center pb-3 border-b border-stone-200">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-burgundy-700">Quick Store Reservation</span>
+          <h3 id="modalPackTitle" class="font-serif font-bold text-xl text-stone-900">Reserve Cut</h3>
+        </div>
+        <button onclick="closeOrderModal()" class="text-stone-400 hover:text-stone-700 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="py-4 space-y-4 text-xs sm:text-sm">
+        <div class="p-3 bg-stone-100 rounded-xl flex justify-between items-center">
+          <div>
+            <p class="font-bold text-stone-800" id="modalPackNameDisplay">Fresh Cut Order</p>
+            <p class="text-xs text-stone-500">Pick up at Waterford Shopping Centre Lisduggan</p>
+          </div>
+          <span id="modalPackPriceDisplay" class="font-serif font-semibold text-burgundy-700">Counter Price</span>
+        </div>
+
+        <div>
+          <label class="block text-stone-700 font-semibold mb-1 text-xs uppercase" for="custName">Your Full Name *</label>
+          <input type="text" id="custName" required placeholder="e.g. Liam Brennan" class="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-burgundy-700 text-sm">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-stone-700 font-semibold mb-1 text-xs uppercase" for="custPhone">Contact Phone *</label>
+            <input type="tel" id="custPhone" required placeholder="e.g. 087 123 4567" class="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-burgundy-700 text-sm">
+          </div>
+          <div>
+            <label class="block text-stone-700 font-semibold mb-1 text-xs uppercase" for="pickupDay">Preferred Pickup Day *</label>
+            <select id="pickupDay" class="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-burgundy-700 text-sm bg-white">
+              <option value="Today (Within 2 Hours)">Today (Within 2 Hours)</option>
+              <option value="Friday Morning">Friday Morning</option>
+              <option value="Friday Afternoon">Friday Afternoon</option>
+              <option value="Saturday Morning">Saturday Morning</option>
+              <option value="Saturday Afternoon">Saturday Afternoon</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-stone-700 font-semibold mb-1 text-xs uppercase" for="custNotes">Quantity &amp; Cutting Preferences</label>
+          <textarea id="custNotes" rows="2" placeholder="e.g. 4x thick ribeyes, 1kg mince vacuum packed..." class="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-burgundy-700 text-sm"></textarea>
+        </div>
+
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs flex items-start gap-2">
+          <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 shrink-0"></i>
+          <span>No prepayment needed. Pay when you collect your freshly prepared cuts at Billy Murphy &amp; Son.</span>
+        </div>
+
+        <div class="pt-2 flex gap-3">
+          <button type="submit" class="flex-1 py-3 rounded-xl bg-burgundy-700 hover:bg-burgundy-600 text-white font-bold text-xs uppercase tracking-wider transition">
+            Confirm Reservation
+          </button>
+          <button type="button" onclick="closeOrderModal()" class="py-3 px-4 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toastMessage" class="fixed top-20 right-4 z-50 bg-slatecharcoal-900 text-white border border-goldaccent-500/50 px-5 py-3.5 rounded-xl shadow-2xl text-sm flex items-center gap-3 transform translate-y-[-150%] opacity-0 transition-all duration-300 max-w-md">
+    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+    <span id="toastText">Your request has been received!</span>
+  </div>
+
+  <!-- JavaScript App Logic -->
+  <script>
+    // Set dynamic footer year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+      if (menu.classList.contains('hidden')) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      }
+    }
+
+    // Hours modal toggle
+    function toggleHoursModal() {
+      const modal = document.getElementById('hoursModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    // Filter categories in specials
+    function filterCategory(category) {
+      const cards = document.querySelectorAll('.cut-card');
+      const buttons = document.querySelectorAll('.category-btn');
+
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-burgundy-700', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-white', 'text-stone-700');
+      });
+
+      const activeBtn = document.getElementById(`btn-${category}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'text-stone-700');
+        activeBtn.classList.add('bg-burgundy-700', 'text-white', 'shadow-sm');
+      }
+
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal Order / Enquiry
+    function quickEnquire(cutName) {
+      document.getElementById('modalPackTitle').innerText = 'Reserve ' + cutName;
+      document.getElementById('modalPackNameDisplay').innerText = cutName;
+      document.getElementById('modalPackPriceDisplay').innerText = 'Priced by weight';
+      
+      const modal = document.getElementById('orderModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeOrderModal() {
+      const modal = document.getElementById('orderModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const day = document.getElementById('pickupDay').value;
+
+      closeOrderModal();
+      showToast(`Thank you, ${name}! Your order will be prepared for pickup on ${day}. We'll call ${phone} if needed.`);
+      
+      document.getElementById('orderForm').reset();
+    }
+
+    // Toast feedback
+    function showToast(message) {
+      const toast = document.getElementById('toastMessage');
+      const text = document.getElementById('toastText');
+      text.innerText = message;
+      toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-[-150%]', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 5000);
+    }
+
+    // Close modals on outside click
+    window.onclick = function(event) {
+      const hoursModal = document.getElementById('hoursModal');
+      const orderModal = document.getElementById('orderModal');
+      if (event.target === hoursModal) toggleHoursModal();
+      if (event.target === orderModal) closeOrderModal();
+    };
+  </script>
+</body>
+</html>
